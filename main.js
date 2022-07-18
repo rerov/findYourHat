@@ -8,7 +8,7 @@ const pathCharacter = '*'
 class Field {
     constructor(field){
         this.field = field
-        this.yer = [0,0]    
+        this.yer = []    
     }
     
     print(){
@@ -18,6 +18,17 @@ class Field {
         }
     }
 
+    findPosition () {
+        let height = this.field.length
+        let width = this.field[0].length
+        for(let i= 0; i< height; i++){
+            for(let j=0; j < width; j++){
+                if(this.field[i][j] === pathCharacter){
+                    this.yer = [i,j]
+                }
+            }
+        }    
+    }
 
     static generateField(height, width) {
         let field = []
@@ -32,7 +43,7 @@ class Field {
             field.push(row)
         }
         let k = 0 
-        let t = []
+
         while(k < 5){
             const randomHeight = Math.floor(Math.random() * height)
             const randomWidth = Math.floor(Math.random() * width)
@@ -43,22 +54,20 @@ class Field {
 
                 field[randomHeight][randomWidth] = pathCharacter
                 field[randomH][randomW] = hat
-                t[0] = randomHeight
-                t[1] = randomWidth 
-                
+          
                 break
             }
 
         }
-        this.yer = t
+      
         return field
     }
 }
 
 
 let alan = new Field(Field.generateField(3,3))
+alan.findPosition()
 
-console.log(alan)
 
 const askPrompt = require('prompt-sync')({sigint:true})
 
@@ -80,7 +89,7 @@ while (i < 5) {
         alan.yer[1] += 1
     }
 
-    if(alan.yer[0] < 0 || alan.yer[1] < 0 || alan.yer[0] > 3 || alan.yer[1] > 3){
+    if(alan.yer[0] < 0 || alan.yer[1] < 0 || alan.yer[0] > alan.field.length || alan.yer[1] > alan.field[0].length){
         console.log(alan.print())
         console.log('You are out of boundaries. You are eliminated!')
         break 
