@@ -19,10 +19,38 @@ class Field {
         }
     }
 
-    static generateField() {
+    static generateField(height, width) {
+        let field = []
+        const options = [hole, fieldCharacter]
+        
+        for(let i = 0; i < height; i++){
+            const row = []
+            for(let j=0; j < width; j++){
+                const randomOption = options[Math.floor(Math.random()*2)]
+                row[j] = randomOption
+            }
+            field.push(row)
+        }
+        let k = 0 
+        while(k < 5){
+            const randomHeight = Math.floor(Math.random() * height)
+            const randomWidth = Math.floor(Math.random() * width)
+          
+            const randomH = Math.floor(Math.random() * height)
+            const randomW = Math.floor(Math.random() * width)
+            if (randomHeight !== randomH && randomWidth !== randomW) {
 
+                field[randomHeight][randomWidth] = pathCharacter
+                field[randomH][randomW] = hat
+                break
+            }
+
+        }
+
+        return field
     }
 }
+console.log(Field.generateField(3,3))
 
 let alan = new Field([
     ['*', '░', 'O'],
@@ -30,13 +58,7 @@ let alan = new Field([
     ['░', '^', '░'],
   ], [0,0])
 
-/*   console.log(alan.yer)
-  alan.yer[0] += 1
-  console.log(alan.yer) */
 
-/*   console.log(alan.field)
-  alan.field[0][1] = pathCharacter
-  console.log(alan.field) */
 
 const askPrompt = require('prompt-sync')({sigint:true})
 
