@@ -6,10 +6,9 @@ const fieldCharacter = '░'
 const pathCharacter = '*'
 
 class Field {
-    constructor(field, yer){
+    constructor(field){
         this.field = field
-        this.yer = yer
-        
+        this.yer = [0,0]    
     }
     
     print(){
@@ -18,6 +17,7 @@ class Field {
             console.log(row)
         }
     }
+
 
     static generateField(height, width) {
         let field = []
@@ -32,6 +32,7 @@ class Field {
             field.push(row)
         }
         let k = 0 
+        let t = []
         while(k < 5){
             const randomHeight = Math.floor(Math.random() * height)
             const randomWidth = Math.floor(Math.random() * width)
@@ -42,23 +43,22 @@ class Field {
 
                 field[randomHeight][randomWidth] = pathCharacter
                 field[randomH][randomW] = hat
+                t[0] = randomHeight
+                t[1] = randomWidth 
+                
                 break
             }
 
         }
-
+        this.yer = t
         return field
     }
 }
-console.log(Field.generateField(3,3))
-
-let alan = new Field([
-    ['*', '░', 'O'],
-    ['░', 'O', '░'],
-    ['░', '^', '░'],
-  ], [0,0])
 
 
+let alan = new Field(Field.generateField(3,3))
+
+console.log(alan)
 
 const askPrompt = require('prompt-sync')({sigint:true})
 
